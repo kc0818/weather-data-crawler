@@ -2,6 +2,7 @@ import csv
 from dataclasses import dataclass, asdict
 
 from bs4 import BeautifulSoup
+import click
 import requests
 
 
@@ -43,10 +44,14 @@ def parse_html(response):
     return weather_data_list
 
 
-def main():
-    url = "https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=44&block_no=47662&year=1994&month=08"
+@click.command()
+@click.option("--year", type=str)
+@click.option("--month", type=str)
+def main(year: str, month: str):
+    url = f"https://www.data.jma.go.jp/stats/etrn/view/daily_s1.php?prec_no=44&block_no=47662&year={year}&month={month}"
     response = requests.get(url)
     weather_data_list = parse_html(response)
+    print("done")
 
 
 if __name__ == '__main__':
