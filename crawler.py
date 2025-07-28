@@ -18,7 +18,8 @@ class WeatherData:
 
 
 def write_csv(weather_data_list: List[WeatherData], year: str, month: str):
-    with open("output.csv", "w", newline="", encoding="utf-8") as f:
+    file_name = f"{year.zfill(2)}-{month.zfill(2)}.csv"
+    with open(f"output/{file_name}", "w", newline="", encoding="utf-8") as f:
         writer = csv.writer(f)
         # ヘッダー書き込み
         writer.writerow(["day", "avr_pressure", "avr_temperature", "max_temperature", "avr_humidity"])
